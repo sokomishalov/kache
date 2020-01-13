@@ -8,10 +8,10 @@
         <groupId>ru.sokomishalov.kache</groupId>
         <artifactId>kache-parent</artifactId>
         <version>0.0.1</version>
-        <relativePath>../../..</relativePath>
+        <relativePath>../..</relativePath>
     </parent>
 
-    <artifactId>kache-redis-lettuce</artifactId>
+    <artifactId>kache-spring-cache</artifactId>
     <version>0.0.1</version>
 
     <dependencies>
@@ -21,14 +21,9 @@
             <version>0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>io.lettuce</groupId>
-            <artifactId>lettuce-core</artifactId>
-            <version>${lettuce.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-coroutines-reactor</artifactId>
-            <version>${kotlinx.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>

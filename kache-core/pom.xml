@@ -15,8 +15,6 @@
 
     <dependencies>
 
-        <!--  COMPILE DEPS  -->
-
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -27,15 +25,6 @@
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-jdk8</artifactId>
             <version>${kotlinx.version}</version>
-        </dependency>
-
-        <!--  OPTIONAL DEPS  -->
-
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
-            <optional>true</optional>
         </dependency>
 
     </dependencies>

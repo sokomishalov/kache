@@ -31,7 +31,7 @@
         <module>serializers/kache-serialization-gson</module>
 
         <module>providers/kache-concurrent-map</module>
-        <module>providers/kache-spring-cache-manager</module>
+        <module>providers/kache-spring-cache</module>
         <module>providers/mongo/kache-mongo-reactive-streams</module>
         <module>providers/redis/kache-redis-lettuce</module>
     </modules>
