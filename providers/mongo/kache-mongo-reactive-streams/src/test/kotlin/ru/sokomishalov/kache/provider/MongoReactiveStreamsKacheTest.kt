@@ -25,7 +25,7 @@ import ru.sokomishalov.kache.tck.KacheTck
  * @author sokomishalov
  */
 
-class MongoKacheTest : KacheTck() {
+class MongoReactiveStreamsKacheTest : KacheTck() {
 
     companion object {
         @get:ClassRule
@@ -38,6 +38,6 @@ class MongoKacheTest : KacheTck() {
 
     override val kache: Kache by lazy {
         mongo.start()
-        MongoKache(serializer = JacksonSerializer(), client = mongo.createReactiveMongoClient())
+        MongoReactiveStreamsKache(serializer = JacksonSerializer(), client = mongo.createReactiveMongoClient())
     }
 }

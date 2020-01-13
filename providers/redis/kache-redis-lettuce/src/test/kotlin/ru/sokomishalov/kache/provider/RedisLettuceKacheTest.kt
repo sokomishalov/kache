@@ -24,7 +24,7 @@ import ru.sokomishalov.kache.tck.KacheTck
 /**
  * @author sokomishalov
  */
-class RedisKacheTest : KacheTck() {
+class RedisLettuceKacheTest : KacheTck() {
 
     companion object {
         @get:ClassRule
@@ -37,6 +37,6 @@ class RedisKacheTest : KacheTck() {
 
     override val kache: Kache by lazy {
         redis.start()
-        RedisKache(serializer = JacksonSerializer(), client = redis.createRedisClient())
+        RedisLettuceKache(serializer = JacksonSerializer(), client = redis.createRedisClient())
     }
 }

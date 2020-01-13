@@ -28,7 +28,7 @@ import ru.sokomishalov.kache.core.util.unit
  * @author sokomishalov
  */
 
-class RedisKache(
+class RedisLettuceKache(
         override val serializer: Serializer,
         private val host: String = "localhost",
         private val port: Int = 27017,

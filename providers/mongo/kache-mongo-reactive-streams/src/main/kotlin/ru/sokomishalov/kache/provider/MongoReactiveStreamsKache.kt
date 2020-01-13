@@ -40,7 +40,7 @@ import kotlin.text.Charsets.UTF_8
 /**
  * @author sokomishalov
  */
-class MongoKache(
+class MongoReactiveStreamsKache(
         override val serializer: Serializer,
         private val host: String? = "localhost",
         private val port: Int? = 27017,
