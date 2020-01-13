@@ -4,13 +4,10 @@ package ru.sokomishalov.kache.core
  * @author sokomishalov
  */
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.future.future
 import ru.sokomishalov.kache.core.serializer.DEFAULT_SERIALIZER
 import ru.sokomishalov.kache.core.serializer.Serializer
 import java.time.Duration
 import java.time.temporal.TemporalAmount
-import java.util.concurrent.CompletableFuture
 
 /**
  * @author sokomishalov
@@ -105,24 +102,4 @@ interface Kache {
     suspend fun exists(key: String): Boolean {
         return getRaw(key.addPrefix()) != null
     }
-    // ---------------------------------------------------------------------------------------------------------------------------------
-
-    fun <T> getOneCF(key: String, clazz: Class<T>): CompletableFuture<T?> = GlobalScope.future { getOne(key, clazz) }
-    fun <T> getListCF(key: String, clazz: Class<T>): CompletableFuture<List<T>> = GlobalScope.future { getList(key, clazz) }
-    fun <V> getMapCF(key: String, clazz: Class<V>): CompletableFuture<Map<String, V>> = GlobalScope.future { getMap(key, clazz) }
-    fun <T> getFromMapCF(key: String, mapKey: String, clazz: Class<T>): CompletableFuture<T?> = GlobalScope.future { getFromMap(key, mapKey, clazz) }
-    fun <T> putCF(key: String, value: T): CompletableFuture<Unit> = GlobalScope.future { put(key, value) }
-    fun <T> putCF(key: String, value: T, ttl: TemporalAmount): CompletableFuture<Unit> = GlobalScope.future { put(key, value, ttl) }
-    fun <T> addToListCF(key: String, clazz: Class<T>, vararg values: T): CompletableFuture<List<T>> = GlobalScope.future { addToList(key, clazz, *values) }
-    fun <T> addToMapCF(key: String, clazz: Class<T>, additionalMap: Map<String, T>): CompletableFuture<Map<String, T>> = GlobalScope.future { addToMap(key, clazz, additionalMap) }
-    fun findAllKeysCF(): CompletableFuture<List<String>> = GlobalScope.future { findAllKeys() }
-    fun <T : Any> findCF(pattern: String, clazz: Class<T>): CompletableFuture<List<T>> = GlobalScope.future { find(pattern, clazz) }
-    fun getRawCF(key: String): CompletableFuture<ByteArray?> = GlobalScope.future { getRaw(key) }
-    fun putRawCF(key: String, value: ByteArray): CompletableFuture<Unit> = GlobalScope.future { putRaw(key, value) }
-    fun expireCF(key: String, ttl: TemporalAmount): CompletableFuture<Unit> = GlobalScope.future { expire(key, ttl) }
-    fun deleteCF(keys: Iterable<String>): CompletableFuture<Unit> = GlobalScope.future { delete(keys) }
-    fun <T> deleteFromListCF(key: String, clazz: Class<T>, vararg values: T): CompletableFuture<List<T>> = GlobalScope.future { deleteFromList(key, clazz, *values) }
-    fun <T> deleteFromMapCF(key: String, clazz: Class<T>, removalMap: Map<String, T>): CompletableFuture<Map<String, T>> = GlobalScope.future { deleteFromMap(key, clazz, removalMap) }
-    fun deleteAllCF(): CompletableFuture<Unit> = GlobalScope.future { deleteAll() }
-    fun existsCF(key: String): CompletableFuture<Boolean> = GlobalScope.future { exists(key) }
 }

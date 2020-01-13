@@ -22,7 +22,7 @@ class ConcurrentMapKache(
 
     override suspend fun putRaw(key: String, value: ByteArray) = map.put(key.addPrefix(), value).unit()
 
-    override suspend fun delete(key: String) = unit()
+    override suspend fun delete(key: String) = map.remove(key.addPrefix()).unit()
 
     override suspend fun expire(key: String, ttl: TemporalAmount) = throw UnsupportedOperationException()
 
@@ -32,5 +32,5 @@ class ConcurrentMapKache(
 
     override suspend fun deleteAll() = map.clear()
 
-    // override some methods for better performance
+    // override some other methods for better performance
 }

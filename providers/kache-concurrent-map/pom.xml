@@ -22,9 +22,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>ru.sokomishalov.kache</groupId>
+            <artifactId>kache-tck</artifactId>
+            <version>0.0.1</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
