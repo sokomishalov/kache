@@ -5,7 +5,7 @@ package ru.sokomishalov.kache.core.util
  */
 
 // https://stackoverflow.com/a/1248627/5843129
-fun String.convertGlobToRegex(): Regex {
+fun String.globToRegex(): Regex {
     val sb = StringBuilder(length)
     var inGroup = 0
     var inClass = 0

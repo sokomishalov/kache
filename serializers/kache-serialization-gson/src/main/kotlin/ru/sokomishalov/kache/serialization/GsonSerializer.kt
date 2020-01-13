@@ -1,10 +1,10 @@
 @file:Suppress("unused")
 
-package ru.sokomishalov.kache.core.serializer.gson
+package ru.sokomishalov.kache.serialization
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import ru.sokomishalov.kache.core.serializer.Serializer
+import ru.sokomishalov.kache.core.Serializer
 import kotlin.text.Charsets.UTF_8
 
 

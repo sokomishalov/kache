@@ -4,8 +4,6 @@ package ru.sokomishalov.kache.core
  * @author sokomishalov
  */
 
-import ru.sokomishalov.kache.core.serializer.DEFAULT_SERIALIZER
-import ru.sokomishalov.kache.core.serializer.Serializer
 import java.time.Duration
 import java.time.temporal.TemporalAmount
 
@@ -14,24 +12,15 @@ import java.time.temporal.TemporalAmount
  */
 interface Kache {
 
-    // ---------------------------------------------------------------------------------------------------------------------------------
-
-    val serializer: Serializer get() = DEFAULT_SERIALIZER
-    val cacheName: String get() = "cache"
-
-    // ---------------------------------------------------------------------------------------------------------------------------------
-
-    fun String.addPrefix(): String = "${cacheName}${this}"
-    fun String.removePrefix(): String = removePrefix(cacheName)
-
-    // ---------------------------------------------------------------------------------------------------------------------------------
-
+    val serializer: Serializer
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
     suspend fun expire(key: String, ttl: TemporalAmount)
     suspend fun delete(key: String)
     suspend fun findKeys(glob: String): List<String>
 
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    //  These methods should be overridden for better performance of implementation
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     suspend fun <T> getOne(key: String, clazz: Class<T>): T? {
@@ -100,6 +89,6 @@ interface Kache {
     }
 
     suspend fun exists(key: String): Boolean {
-        return getRaw(key.addPrefix()) != null
+        return getRaw(key) != null
     }
 }

@@ -8,36 +8,23 @@
         <groupId>ru.sokomishalov.kache</groupId>
         <artifactId>kache-parent</artifactId>
         <version>0.0.1</version>
+        <relativePath>../..</relativePath>
     </parent>
 
-    <artifactId>kache-core</artifactId>
+    <artifactId>kache-serialization-jackson</artifactId>
     <version>0.0.1</version>
 
     <dependencies>
-
-        <!--  COMPILE DEPS  -->
-
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
+            <groupId>ru.sokomishalov.kache</groupId>
+            <artifactId>kache-core</artifactId>
+            <version>0.0.1</version>
         </dependency>
-
         <dependency>
-            <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-coroutines-jdk8</artifactId>
-            <version>${kotlinx.version}</version>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
-
-        <!--  OPTIONAL DEPS  -->
-
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
-            <optional>true</optional>
-        </dependency>
-
     </dependencies>
 
     <build>

@@ -21,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import ru.sokomishalov.kache.core.*
 import ru.sokomishalov.kache.tck.internal.DummyModel
@@ -186,7 +187,7 @@ abstract class KacheTck {
     @Test
     open fun `Add and delete items from list`() = runBlocking {
         val key = randomUUID().toString()
-        val items = (0L..10L).map { DummyModel(it, randomUUID().toString()) }
+        val items = (0L..10L).map { DummyModel(it) }
 
         kache.addToList(key, *items.subList(0, 6).toTypedArray())
         assertEquals(6, kache.getList<DummyModel>(key).size)
@@ -201,7 +202,7 @@ abstract class KacheTck {
     @Test
     open fun `Put and delete items from map`() = runBlocking {
         val key = randomUUID().toString()
-        val items = (0L..10L).map { it.toString() to DummyModel(it, randomUUID().toString()) }.toMap()
+        val items = (0L..10L).map { it.toString() to DummyModel(it) }.toMap()
 
         kache.addToMap(key, items.filterKeys { it.toLong() in (0..6) })
         assertEquals(7, kache.getMap<DummyModel>(key).size)
@@ -211,6 +212,18 @@ abstract class KacheTck {
 
         kache.deleteFromMap(key, items.filterKeys { it.toLong() in (5L..8L) })
         assertEquals(6, kache.getMap<DummyModel>(key).size)
+    }
+
+    @Test
+    open fun `Delete multiple keys`() = runBlocking {
+        val keys = (1L..10L).map { it.toString() }
+        keys.forEach { kache.put(it, it) }
+
+        val keysToDelete = (1L..4L).map { it.toString() }
+        kache.delete(keysToDelete)
+
+        assertNull(kache.getOne("3"))
+        assertNotNull(kache.getOne("6"))
     }
 
     @Test

@@ -1,4 +1,4 @@
-package ru.sokomishalov.kache.core.serializer
+package ru.sokomishalov.kache.core
 
 /**
  * @author sokomishalov

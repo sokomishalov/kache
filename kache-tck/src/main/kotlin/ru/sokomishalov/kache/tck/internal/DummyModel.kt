@@ -16,11 +16,11 @@
 package ru.sokomishalov.kache.tck.internal
 
 import java.lang.System.currentTimeMillis
-import java.util.*
+import java.util.UUID.randomUUID
 
 data class DummyModel(
         val id: Long = 0,
-        val name: String? = UUID.randomUUID().toString(),
+        val name: String? = randomUUID().toString(),
         val createdAt: Long = currentTimeMillis()
 ) : Comparable<DummyModel> {
     override fun compareTo(other: DummyModel): Int = id.compareTo(other.id)

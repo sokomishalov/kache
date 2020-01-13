@@ -26,6 +26,10 @@
     <modules>
         <module>kache-core</module>
         <module>kache-tck</module>
+
+        <module>serializers/kache-serialization-jackson</module>
+        <module>serializers/kache-serialization-gson</module>
+
         <module>providers/kache-concurrent-map</module>
         <module>providers/kache-spring-cache-manager</module>
         <module>providers/mongo/kache-mongo-reactive-streams</module>
