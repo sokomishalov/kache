@@ -25,10 +25,18 @@
             <artifactId>jackson-module-kotlin</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ru.sokomishalov.kache</groupId>
+            <artifactId>kache-tck</artifactId>
+            <version>0.0.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>

@@ -20,7 +20,7 @@ interface Kache {
     suspend fun findKeys(glob: String): List<String>
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    //  These methods should be overridden for better performance of implementation
+    //  These methods below should be overridden too for better performance of implementation
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     suspend fun <T> getOne(key: String, clazz: Class<T>): T? {

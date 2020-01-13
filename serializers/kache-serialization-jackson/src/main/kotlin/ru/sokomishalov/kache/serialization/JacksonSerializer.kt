@@ -26,7 +26,7 @@ class JacksonSerializer(
     }
 
     override fun <K, V> deserializeMap(byteArray: ByteArray, keyClass: Class<K>, valueClass: Class<V>): Map<K, V> {
-        return objectMapper.readValue(byteArray, objectMapper.typeFactory.constructMapType(HashMap::class.java, keyClass, valueClass))
+        return objectMapper.readValue(byteArray, objectMapper.typeFactory.constructMapType(Map::class.java, keyClass, valueClass))
     }
 
 }
