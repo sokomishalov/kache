@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package ru.sokomishalov.kache.core.serializer.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
