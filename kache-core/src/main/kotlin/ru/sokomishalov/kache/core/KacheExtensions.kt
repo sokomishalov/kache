@@ -1,9 +1,5 @@
 package ru.sokomishalov.kache.core
 
-import java.time.Duration
-import java.time.chrono.ChronoPeriod
-import java.time.temporal.TemporalAmount
-
 /**
  * @author sokomishalov
  */
@@ -24,11 +20,3 @@ suspend inline fun <reified T> Kache.addToMap(key: String, additionalMap: Map<St
 suspend inline fun <reified T> Kache.deleteFromList(key: String, vararg values: T): List<T> = deleteFromList(key, T::class.java, *values)
 
 suspend inline fun <reified T> Kache.deleteFromMap(key: String, removalMap: Map<String, T>): Map<String, T> = deleteFromMap(key, T::class.java, removalMap)
-
-@PublishedApi
-internal suspend inline fun Kache.expireIfNeeded(key: String, ttl: TemporalAmount) {
-    when {
-        ttl is Duration && ttl.isNegative.not() -> expire(key, ttl)
-        ttl is ChronoPeriod && ttl.isNegative.not() -> expire(key, ttl)
-    }
-}

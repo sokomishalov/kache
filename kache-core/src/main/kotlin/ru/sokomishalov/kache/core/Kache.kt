@@ -1,11 +1,12 @@
 package ru.sokomishalov.kache.core
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 /**
  * @author sokomishalov
  */
-
-import java.time.Duration
-import java.time.temporal.TemporalAmount
 
 /**
  * @author sokomishalov
@@ -15,9 +16,8 @@ interface Kache {
     val serializer: Serializer
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
-    suspend fun expire(key: String, ttl: TemporalAmount)
+    suspend fun findKeysByGlob(glob: String): List<String>
     suspend fun delete(key: String)
-    suspend fun findKeys(glob: String): List<String>
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     //  These methods below should be overridden too for better performance of implementation
@@ -39,9 +39,8 @@ interface Kache {
         return getMap(key, clazz)[mapKey]
     }
 
-    suspend fun <T> put(key: String, value: T, ttl: TemporalAmount = Duration.ofSeconds(-1)) {
+    suspend fun <T> put(key: String, value: T) {
         putRaw(key, serializer.serialize(value))
-        expireIfNeeded(key, ttl)
     }
 
     suspend fun <T> addToList(key: String, clazz: Class<T>, vararg values: T): List<T> {
@@ -59,11 +58,11 @@ interface Kache {
     }
 
     suspend fun findAllKeys(): List<String> {
-        return findKeys("*")
+        return findKeysByGlob("*")
     }
 
-    suspend fun <T : Any> find(pattern: String, elementClass: Class<T>): List<T> {
-        return findKeys(pattern).mapNotNull { getRaw(it)?.let { v -> serializer.deserialize(v, elementClass) } }
+    suspend fun <T : Any> find(glob: String, elementClass: Class<T>): List<T> {
+        return findKeysByGlob(glob).mapNotNull { getRaw(it)?.let { v -> serializer.deserialize(v, elementClass) } }
     }
 
     suspend fun delete(keys: Iterable<String>) {
@@ -90,5 +89,14 @@ interface Kache {
 
     suspend fun exists(key: String): Boolean {
         return getRaw(key) != null
+    }
+
+    suspend fun expire(key: String, ttlMs: Long) {
+        if (ttlMs > 0) {
+            GlobalScope.launch {
+                delay(ttlMs)
+                delete(key)
+            }
+        }
     }
 }

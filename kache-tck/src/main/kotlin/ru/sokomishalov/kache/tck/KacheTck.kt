@@ -17,11 +17,10 @@
 
 package ru.sokomishalov.kache.tck
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Test
 import ru.sokomishalov.kache.core.*
 import ru.sokomishalov.kache.tck.internal.DummyModel
@@ -247,6 +246,17 @@ abstract class KacheTck {
 
         val notFoundButElse = kache.find("*hehmda") { listOf("lol") }
         assertEquals(1, notFoundButElse.size)
+    }
+
+    @Test
+    open fun `Test expiration`() = runBlocking {
+        kache.put(CACHE_KEY, randomUUID().toString())
+
+        kache.expire(CACHE_KEY, 300)
+        assertNotNull(kache.getOne(CACHE_KEY))
+
+        delay(350)
+        assertNull(kache.getOne(CACHE_KEY))
     }
 
     companion object {

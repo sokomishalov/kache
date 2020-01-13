@@ -4,7 +4,6 @@ import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
 import ru.sokomishalov.kache.core.util.globToRegex
 import ru.sokomishalov.kache.core.util.unit
-import java.time.temporal.TemporalAmount
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
@@ -22,9 +21,7 @@ class ConcurrentMapKache(
 
     override suspend fun delete(key: String) = map.remove(key).unit()
 
-    override suspend fun expire(key: String, ttl: TemporalAmount) = throw UnsupportedOperationException()
-
-    override suspend fun findKeys(glob: String): List<String> = map.keys.map { it }.filter { glob.globToRegex().matches(it) }
+    override suspend fun findKeysByGlob(glob: String): List<String> = map.keys.map { it }.filter { glob.globToRegex().matches(it) }
 
     override suspend fun exists(key: String): Boolean = map.keys.contains(key)
 
