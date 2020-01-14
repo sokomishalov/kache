@@ -39,8 +39,9 @@ interface Kache {
     suspend fun delete(key: String)
 
     // -------------------------------------------------------------------------------------//
-    //  Methods that should be overridden for a better efficiency of implementation.        //
-    //  This is one of main reasons why these methods are not extension functions.          //
+    //  Methods below have inefficient default implementation and should be overridden      //
+    //  for a better performance. This is one of main reasons why these methods are         //
+    //  not extension functions.                                                            //
     // -------------------------------------------------------------------------------------//
 
     suspend fun <T> getOne(key: String, clazz: Class<T>): T? {

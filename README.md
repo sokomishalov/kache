@@ -1,10 +1,12 @@
 Kache
 ========
+~~Here should be some modern logo~~
+
 [![Apache License 2](https://img.shields.io/badge/license-ASF2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 
 ## Overview
-Kotlin/JVM useful coroutine-based cache abstraction with several implementations.
+Kotlin/JVM useful coroutine-based key-value cache abstraction with several implementations.
 
 ## Distribution
 Library with modules are available only from `jitpack` so far:
@@ -33,8 +35,9 @@ interface Kache {
     suspend fun delete(key: String)
 
     // -------------------------------------------------------------------------------------//
-    //  Methods that should be overridden for a better efficiency of implementation.        //
-    //  This is one of main reasons why these methods are not extension functions.          //
+    //  Methods below have inefficient default implementation and should be overridden      // 
+    //  for a better performance. This is one of main reasons why these methods are         //
+    //  not extension functions.                                                            //
     // -------------------------------------------------------------------------------------//
 
     suspend fun <T> getOne(key: String, clazz: Class<T>): T? { /*...*/ }
