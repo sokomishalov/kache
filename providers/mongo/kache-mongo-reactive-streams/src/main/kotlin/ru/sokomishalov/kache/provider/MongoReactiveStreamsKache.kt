@@ -26,11 +26,11 @@ import com.mongodb.client.model.Updates.set
 import com.mongodb.reactivestreams.client.MongoClient
 import com.mongodb.reactivestreams.client.MongoClients
 import com.mongodb.reactivestreams.client.MongoCollection
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactive.awaitFirstOrNull
-import kotlinx.coroutines.reactive.awaitSingle
 import org.bson.Document
 import org.bson.conversions.Bson
-import reactor.core.publisher.toFlux
 import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
 import ru.sokomishalov.kache.core.util.globToRegex
@@ -78,9 +78,8 @@ class MongoReactiveStreamsKache(
     override suspend fun findKeysByGlob(glob: String): List<String> {
         return getCollection()
                 .find(eq(ID_FIELD, glob.globToRegex().toPattern()))
-                .toFlux()
-                .collectList()
-                .awaitSingle()
+                .asFlow()
+                .toList()
                 .mapNotNull { it?.get(ID_FIELD) as String? }
     }
 
@@ -92,6 +91,4 @@ class MongoReactiveStreamsKache(
     private fun ByteArray.buildValueBson(): Bson = set(RAW_VALUE_FIELD, this.toString(UTF_8))
 
     private fun getCollection(): MongoCollection<Document> = client.getDatabase(databaseName).getCollection(collectionName)
-
-    // override some methods for better performance
 }

@@ -41,6 +41,4 @@ class ConcurrentMapKache(
     override suspend fun exists(key: String): Boolean = map.keys.contains(key)
 
     override suspend fun deleteAll() = map.clear()
-
-    // override some other methods for better performance
 }

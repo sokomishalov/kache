@@ -28,15 +28,20 @@ import kotlinx.coroutines.launch
  */
 interface Kache {
 
+    // -----------------------------------------------------------------------------------//
+    //  Methods that must be implemented.                                                 //
+    // -----------------------------------------------------------------------------------//
+
     val serializer: Serializer
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
     suspend fun findKeysByGlob(glob: String): List<String>
     suspend fun delete(key: String)
 
-    // ---------------------------------------------------------------------------------------------------------------------------------
-    //  These methods below should be overridden too for better performance of implementation
-    // ---------------------------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------//
+    //  Methods that should be overridden for a better efficiency of implementation.        //
+    //  This is one of main reasons why these methods are not extension functions.          //
+    // -------------------------------------------------------------------------------------//
 
     suspend fun <T> getOne(key: String, clazz: Class<T>): T? {
         return getRaw(key)?.let { serializer.deserialize(it, clazz) }

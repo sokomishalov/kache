@@ -23,6 +23,7 @@ import kotlinx.coroutines.reactive.awaitFirstOrNull
 import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
 import ru.sokomishalov.kache.core.util.unit
+import ru.sokomishalov.kache.provider.internal.StringByteArrayCodec
 
 /**
  * @author sokomishalov
@@ -49,6 +50,4 @@ class RedisLettuceKache(
     }
 
     override suspend fun exists(key: String): Boolean = connection.reactive().exists(key).awaitFirstOrNull() == 1L
-
-    // override some methods for better performance
 }

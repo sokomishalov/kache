@@ -38,6 +38,4 @@ class SpringKache(
     override suspend fun findKeysByGlob(glob: String): List<String> = emptyList()
 
     override suspend fun deleteAll() = cache.clear()
-
-    // override some methods for better performance
 }

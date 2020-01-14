@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
-            <artifactId>kotlinx-coroutines-reactor</artifactId>
+            <artifactId>kotlinx-coroutines-reactive</artifactId>
             <version>${kotlinx.version}</version>
         </dependency>
 

@@ -11,7 +11,7 @@
         <relativePath>../..</relativePath>
     </parent>
 
-    <artifactId>kache-spring-cache</artifactId>
+    <artifactId>kache-spring</artifactId>
     <version>0.0.1</version>
 
     <dependencies>
