@@ -131,7 +131,7 @@ Import a dep:
 ```xml
 <dependency>
     <groupId>com.github.sokomishalov</groupId>
-    <artifactId>kache-redis-lettuce</artifactId>
+    <artifactId>kache-mongo-reactive-streams</artifactId>
     <version>${kache.version}</version>
 </dependency>
 ```
