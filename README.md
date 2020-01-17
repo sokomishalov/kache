@@ -76,16 +76,66 @@ Import as a dep:
 
 ## Implementations
 There are several jvm kache implementations so far
-- [kache-concurrent-map](./providers/kache-concurrent-map/src/main/kotlin/ru/sokomishalov/kache/provider/ConcurrentMapKache.kt)
-- [kache-spring](./providers/kache-spring/src/main/kotlin/ru/sokomishalov/kache/provider/SpringKache.kt)
-- [kache-redis-lettuce](./providers/redis/kache-redis-lettuce/src/main/kotlin/ru/sokomishalov/kache/provider/RedisLettuceKache.kt)
-- [kache-mongo-reactive-streams](./providers/mongo/kache-mongo-reactive-streams/src/main/kotlin/ru/sokomishalov/kache/provider/MongoReactiveStreamsKache.kt)
+- [kache-concurrent-map](#concurrent-map)
+- [kache-spring](#integration-with-org.springframework.cache.Cache)
+- [kache-redis-lettuce](#redis-with-reactive-Lettuce)
+- [kache-mongo-reactive-streams](#mongo-with-reactive-streams-driver)
 
-Import as a dep:
+## Concurrent map
+Import a dep:
 ```xml
 <dependency>
     <groupId>com.github.sokomishalov</groupId>
-    <artifactId>kache-{provider-module}</artifactId>
+    <artifactId>kache-concurrent-map</artifactId>
     <version>${kache.version}</version>
 </dependency>
+```
+Then use [this implementation](./providers/kache-concurrent-map/src/main/kotlin/ru/sokomishalov/kache/provider/ConcurrentMapKache.kt):
+```kotlin
+val kache = ConcurrentMapKache(serializer = JacksonSerializer())
+```
+
+
+## Integration with org.springframework.cache.Cache
+Import a dep:
+```xml
+<dependency>
+    <groupId>com.github.sokomishalov</groupId>
+    <artifactId>kache-spring</artifactId>
+    <version>${kache.version}</version>
+</dependency>
+```
+Then use [this implementation](./providers/kache-spring/src/main/kotlin/ru/sokomishalov/kache/provider/SpringKache.kt)
+```kotlin
+val kache = SpringKache(serializer = JacksonSerializer())
+```
+
+
+## Redis with reactive Lettuce
+Import a dep:
+```xml
+<dependency>
+    <groupId>com.github.sokomishalov</groupId>
+    <artifactId>kache-redis-lettuce</artifactId>
+    <version>${kache.version}</version>
+</dependency>
+```
+Then use [this implementation](./providers/redis/kache-redis-lettuce/src/main/kotlin/ru/sokomishalov/kache/provider/RedisLettuceKache.kt)
+```kotlin
+val kache = RedisLettuceKache(serializer = JacksonSerializer(), client = RedisClient.create())
+```
+
+
+## Mongo with reactive streams driver
+Import a dep:
+```xml
+<dependency>
+    <groupId>com.github.sokomishalov</groupId>
+    <artifactId>kache-redis-lettuce</artifactId>
+    <version>${kache.version}</version>
+</dependency>
+```
+Then use [this implementation](./providers/mongo/kache-mongo-reactive-streams/src/main/kotlin/ru/sokomishalov/kache/provider/MongoReactiveStreamsKache.kt)
+```kotlin
+val kache = MongoReactiveStreamsKache(serializer = JacksonSerializer(), client = MongoClients.create())
 ```
