@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package ru.sokomishalov.kache.serialization
+package ru.sokomishalov.kache.core.serialization.gson
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

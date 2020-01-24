@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import ru.sokomishalov.kache.core.Kache
+import ru.sokomishalov.kache.core.serialization.jackson.JacksonSerializer
 import ru.sokomishalov.kache.provider.SpringKache
-import ru.sokomishalov.kache.serialization.JacksonSerializer
 import ru.sokomishalov.kache.tck.KacheTck
 import kotlin.test.assertTrue
 

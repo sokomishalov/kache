@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package ru.sokomishalov.kache.serialization
+package ru.sokomishalov.kache.core.serialization.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper

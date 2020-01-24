@@ -15,14 +15,13 @@
  */
 @file:Suppress("FunctionName")
 
-package ru.sokomishalov.kache.tck
+package ru.sokomishalov.kache.core.serialization
 
 import org.junit.Test
 import ru.sokomishalov.kache.core.Serializer
 import ru.sokomishalov.kache.core.deserialize
 import ru.sokomishalov.kache.core.deserializeList
 import ru.sokomishalov.kache.core.deserializeMap
-import ru.sokomishalov.kache.tck.internal.DummyModel
 import java.util.UUID.randomUUID
 import kotlin.test.assertEquals
 
@@ -65,5 +64,13 @@ abstract class SerializerTck {
         val deserialized = serializer.deserializeMap<Long, DummyModel>(serialized)
         assertEquals(value.size, deserialized.size)
         value.forEach { (k, v) -> assertEquals(v, deserialized[k]) }
+    }
+
+    private data class DummyModel(
+            val id: Long = 0,
+            val name: String? = randomUUID().toString(),
+            val createdAt: Long = System.currentTimeMillis()
+    ) : Comparable<DummyModel> {
+        override fun compareTo(other: DummyModel): Int = id.compareTo(other.id)
     }
 }

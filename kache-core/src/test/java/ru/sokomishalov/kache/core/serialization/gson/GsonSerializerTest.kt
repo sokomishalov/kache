@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.sokomishalov.kache.serialization
+package ru.sokomishalov.kache.core.serialization.gson
 
 import ru.sokomishalov.kache.core.Serializer
-import ru.sokomishalov.kache.tck.SerializerTck
+import ru.sokomishalov.kache.core.serialization.SerializerTck
 
 /**
  * @author sokomishalov
