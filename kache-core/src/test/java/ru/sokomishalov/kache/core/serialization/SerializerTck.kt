@@ -22,6 +22,7 @@ import ru.sokomishalov.kache.core.Serializer
 import ru.sokomishalov.kache.core.deserialize
 import ru.sokomishalov.kache.core.deserializeList
 import ru.sokomishalov.kache.core.deserializeMap
+import java.io.Serializable
 import java.util.UUID.randomUUID
 import kotlin.test.assertEquals
 
@@ -70,7 +71,7 @@ abstract class SerializerTck {
             val id: Long = 0,
             val name: String? = randomUUID().toString(),
             val createdAt: Long = System.currentTimeMillis()
-    ) : Comparable<DummyModel> {
+    ) : Comparable<DummyModel>, Serializable {
         override fun compareTo(other: DummyModel): Int = id.compareTo(other.id)
     }
 }

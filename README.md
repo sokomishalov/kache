@@ -60,19 +60,12 @@ interface Kache {
 ```
 
 ## Serializers
-Serializers are required by cache implementations to serialize various types of data into different 
-storage types. There are several serializer implementations so far:
-- [kache-serialization-jackson (preferred)](./serializers/kache-serialization-jackson/src/main/kotlin/ru/sokomishalov/kache/serialization/JacksonSerializer.kt)
-- [kache-serialization-gson](./serializers/kache-serialization-gson/src/main/kotlin/ru/sokomishalov/kache/serialization/GsonSerializer.kt)
-
-Import as a dep:
-```xml
-<dependency>
-    <groupId>com.github.sokomishalov</groupId>
-    <artifactId>kache-{serialization-module}</artifactId>
-    <version>${kache.version}</version>
-</dependency>
-```
+Serializers are required by cache implementations to serialize various types of data into different storage types. 
+There are several serializer implementations so far:
+- [JDK Serializable](./kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/jdkserializable/JdkSerializableSerializer.kt)
+- [Jackson (preferred)](./kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/jackson/JacksonSerializer.kt)
+- [Gson](././kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/gson/GsonSerializer.kt)
+- [XStream](././kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/xstream/XStreamSerializer.kt)
 
 ## Implementations
 There are several jvm kache implementations so far

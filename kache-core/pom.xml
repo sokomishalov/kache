@@ -44,6 +44,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+            <optional>true</optional>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
