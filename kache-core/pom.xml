@@ -7,11 +7,11 @@
     <parent>
         <groupId>ru.sokomishalov.kache</groupId>
         <artifactId>kache-parent</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
 
     <artifactId>kache-core</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <dependencies>
 
@@ -33,8 +33,7 @@
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
             <version>${jackson.version}</version>
-            <!-- FIXME uncomment-->
-<!--            <optional>true</optional>-->
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -44,7 +43,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>

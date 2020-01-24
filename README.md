@@ -60,12 +60,13 @@ interface Kache {
 ```
 
 ## Serializers
-Serializers are required by cache implementations to serialize various types of data into different storage types. 
+Serializers are required by cache implementations to serialize various types of data into different storage types.
+To use them you just have to put required dependencies in the classpath.
 There are several serializer implementations so far:
-- [JDK Serializable](./kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/jdkserializable/JdkSerializableSerializer.kt)
-- [Jackson (preferred)](./kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/jackson/JacksonSerializer.kt)
-- [Gson](././kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/gson/GsonSerializer.kt)
-- [XStream](././kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/xstream/XStreamSerializer.kt)
+- [JdkSerializableSerializer](./kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/jdkserializable/JdkSerializableSerializer.kt) - works only with java.io.Serializable objects 
+- [JacksonSerializer (preferred)](./kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/jackson/JacksonSerializer.kt) - [jackson](https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin) implementation
+- [GsonSerializer](././kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/gson/GsonSerializer.kt) - [gson](https://mvnrepository.com/artifact/com.google.code.gson/gson) implementation
+- [XStreamSerializer](././kache-core/src/main/kotlin/ru/sokomishalov/kache/core/serialization/xstream/XStreamSerializer.kt) - [xstream](https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream) implementation 
 
 ## Implementations
 There are several jvm kache implementations so far

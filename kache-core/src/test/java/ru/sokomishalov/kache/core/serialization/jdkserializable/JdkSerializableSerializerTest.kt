@@ -19,5 +19,5 @@ import ru.sokomishalov.kache.core.Serializer
 import ru.sokomishalov.kache.core.serialization.SerializerTck
 
 class JdkSerializableSerializerTest : SerializerTck() {
-    override val serializer: Serializer = JdkSerializableSerializer()
+    override val serializer: Serializer by lazy { JdkSerializableSerializer() }
 }
