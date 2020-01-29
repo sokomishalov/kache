@@ -67,7 +67,7 @@ abstract class SerializerTck {
         value.forEach { (k, v) -> assertEquals(v, deserialized[k]) }
     }
 
-    private data class DummyModel(
+    protected data class DummyModel(
             val id: Long = 0,
             val name: String? = randomUUID().toString(),
             val createdAt: Long = System.currentTimeMillis()

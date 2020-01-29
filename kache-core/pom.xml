@@ -7,11 +7,11 @@
     <parent>
         <groupId>ru.sokomishalov.kache</groupId>
         <artifactId>kache-parent</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
     </parent>
 
     <artifactId>kache-core</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <dependencies>
 
@@ -50,6 +50,13 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>kryo</artifactId>
+            <version>${kryo.version}</version>
+            <optional>true</optional>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -72,7 +79,6 @@
                     <jvmTarget>1.8</jvmTarget>
                     <args>
                         <arg>-Xuse-experimental=kotlin.Experimental</arg>
-                        <arg>-Xuse-experimental=kotlin.time.ExperimentalTime</arg>
                     </args>
                 </configuration>
                 <executions>
