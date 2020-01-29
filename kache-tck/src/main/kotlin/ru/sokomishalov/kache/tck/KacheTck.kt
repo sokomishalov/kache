@@ -23,6 +23,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
 import ru.sokomishalov.kache.core.*
+import java.io.Serializable
 import java.util.UUID.randomUUID
 import kotlin.Long.Companion.MAX_VALUE
 import kotlin.Long.Companion.MIN_VALUE
@@ -258,11 +259,11 @@ abstract class KacheTck {
         assertNull(kache.getOne(CACHE_KEY))
     }
 
-    private data class DummyModel(
+    protected data class DummyModel(
             val id: Long = 0,
             val name: String? = randomUUID().toString(),
             val createdAt: Long = System.currentTimeMillis()
-    ) : Comparable<DummyModel> {
+    ) : Comparable<DummyModel>, Serializable {
         override fun compareTo(other: DummyModel): Int = id.compareTo(other.id)
     }
 
