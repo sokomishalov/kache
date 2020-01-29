@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("UNCHECKED_CAST")
+
 package ru.sokomishalov.kache.provider
 
 import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
+import ru.sokomishalov.kache.core.serialization.jdkserializable.JdkSerializableSerializer
 import ru.sokomishalov.kache.core.util.globToRegex
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
@@ -25,7 +28,7 @@ import java.util.concurrent.ConcurrentMap
  * @author sokomishalov
  */
 class ConcurrentMapKache(
-        override val serializer: Serializer,
+        override val serializer: Serializer = JdkSerializableSerializer(),
         private val map: ConcurrentMap<String, Any> = ConcurrentHashMap()
 ) : Kache {
 
@@ -46,6 +49,22 @@ class ConcurrentMapKache(
                 .keys
                 .map { it }
                 .filter { glob.globToRegex().matches(it) }
+    }
+
+    override suspend fun <T> getOne(key: String, clazz: Class<T>): T? {
+        return map[key] as T?
+    }
+
+    override suspend fun <T> getList(key: String, elementClass: Class<T>): List<T> {
+        return map[key] as List<T>? ?: emptyList()
+    }
+
+    override suspend fun <T> getMap(key: String, valueClass: Class<T>): Map<String, T> {
+        return map[key] as Map<String, T>? ?: emptyMap()
+    }
+
+    override suspend fun <T> put(key: String, value: T) {
+        map[key] = value
     }
 
     override suspend fun exists(key: String): Boolean {

@@ -83,7 +83,7 @@ interface Kache {
     }
 
     suspend fun <T : Any> find(glob: String, elementClass: Class<T>): List<T> {
-        return findKeysByGlob(glob).mapNotNull { getRaw(it)?.let { v -> serializer.deserialize(v, elementClass) } }
+        return findKeysByGlob(glob).mapNotNull { getOne(it, elementClass) }
     }
 
     suspend fun delete(keys: Iterable<String>) {

@@ -87,7 +87,7 @@ Import a dep:
 ```
 Then use [this implementation](./providers/kache-concurrent-map/src/main/kotlin/ru/sokomishalov/kache/provider/ConcurrentMapKache.kt):
 ```kotlin
-val kache = ConcurrentMapKache(serializer = JacksonSerializer())
+val kache = ConcurrentMapKache()
 ```
 
 
