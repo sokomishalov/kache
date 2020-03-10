@@ -22,6 +22,7 @@ import io.lettuce.core.api.StatefulRedisConnection
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
+import ru.sokomishalov.kache.core.model.GlobString
 import ru.sokomishalov.kache.provider.internal.StringByteArrayCodec
 
 /**
@@ -64,7 +65,7 @@ class RedisLettuceKache(
                 .awaitFirstOrNull()
     }
 
-    override suspend fun findKeys(glob: String): List<String> {
+    override suspend fun findKeys(glob: GlobString): List<String> {
         return connection
                 .reactive()
                 .scan(ScanArgs().match(glob))

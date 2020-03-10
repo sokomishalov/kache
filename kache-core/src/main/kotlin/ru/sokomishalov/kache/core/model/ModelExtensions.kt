@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.sokomishalov.kache.core.internal.glob
-
-typealias GlobString = String
+package ru.sokomishalov.kache.core.model
 
 // https://stackoverflow.com/a/1248627/5843129
 fun GlobString.globToRegex(): Regex {
@@ -40,7 +38,7 @@ fun GlobString.globToRegex(): Regex {
                         sb.append('\\')
                     }
                     else -> sb.append('\\')
-                }// escape not needed
+                } // escape not needed
                 sb.append(next)
             }
             '*' -> if (inClass == 0)

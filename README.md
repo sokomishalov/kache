@@ -29,7 +29,7 @@ interface Kache {
     //  Methods that must be implemented.                                                 //
     // -----------------------------------------------------------------------------------//
 
-    val serializer: Serializer
+    val serializer: Serializer? = null
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
     suspend fun findKeys(glob: GlobString): List<String>
@@ -49,7 +49,7 @@ interface Kache {
     suspend fun <T> addToList(key: String, clazz: Class<T>, vararg values: T): List<T> { /*...*/ }
     suspend fun <T> addToMap(key: String, clazz: Class<T>, additionalMap: Map<String, T>): Map<String, T> { /*...*/ }
     suspend fun findAllKeys(): List<String> { /*...*/ }
-    suspend fun <T : Any> find(glob: String, elementClass: Class<T>): List<T> { /*...*/ }
+    suspend fun <T : Any> find(glob: GlobString, elementClass: Class<T>): List<T> { /*...*/ }
     suspend fun delete(keys: Iterable<String>) { /*...*/ }
     suspend fun <T> deleteFromList(key: String, clazz: Class<T>, vararg values: T): List<T> { /*...*/ }
     suspend fun <T> deleteFromMap(key: String, clazz: Class<T>, removalMap: Map<String, T>): Map<String, T> { /*...*/ }

@@ -18,7 +18,7 @@ package ru.sokomishalov.kache.core
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.sokomishalov.kache.core.internal.glob.GlobString
+import ru.sokomishalov.kache.core.model.GlobString
 
 /**
  * @author sokomishalov
@@ -33,7 +33,7 @@ interface Kache {
     //  Methods that must be implemented.                                                 //
     // -----------------------------------------------------------------------------------//
 
-    val serializer: Serializer
+    val serializer: Serializer? get() = null
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
     suspend fun findKeys(glob: GlobString): List<String>
@@ -46,15 +46,15 @@ interface Kache {
     // -------------------------------------------------------------------------------------//
 
     suspend fun <T> getOne(key: String, clazz: Class<T>): T? {
-        return getRaw(key)?.let { serializer.deserialize(it, clazz) }
+        return getRaw(key)?.let { serializer?.deserialize(it, clazz) }
     }
 
     suspend fun <T> getList(key: String, elementClass: Class<T>): List<T> {
-        return getRaw(key)?.let { serializer.deserializeList(it, elementClass) } ?: emptyList()
+        return getRaw(key)?.let { serializer?.deserializeList(it, elementClass) } ?: emptyList()
     }
 
     suspend fun <T> getMap(key: String, valueClass: Class<T>): Map<String, T> {
-        return getRaw(key)?.let { serializer.deserializeMap(it, String::class.java, valueClass) } ?: emptyMap()
+        return getRaw(key)?.let { serializer?.deserializeMap(it, String::class.java, valueClass) } ?: emptyMap()
     }
 
     suspend fun <T> getFromMap(key: String, mapKey: String, clazz: Class<T>): T? {
@@ -62,7 +62,7 @@ interface Kache {
     }
 
     suspend fun <T> put(key: String, value: T) {
-        putRaw(key, serializer.serialize(value))
+        serializer?.serialize(value)?.let { ser -> putRaw(key, ser) }
     }
 
     suspend fun <T> addToList(key: String, clazz: Class<T>, vararg values: T): List<T> {
@@ -83,7 +83,7 @@ interface Kache {
         return findKeys("*")
     }
 
-    suspend fun <T : Any> find(glob: String, elementClass: Class<T>): List<T> {
+    suspend fun <T : Any> find(glob: GlobString, elementClass: Class<T>): List<T> {
         return findKeys(glob).mapNotNull { getOne(it, elementClass) }
     }
 

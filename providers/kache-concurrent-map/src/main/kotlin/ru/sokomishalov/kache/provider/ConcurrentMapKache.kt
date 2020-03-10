@@ -18,9 +18,8 @@
 package ru.sokomishalov.kache.provider
 
 import ru.sokomishalov.kache.core.Kache
-import ru.sokomishalov.kache.core.Serializer
-import ru.sokomishalov.kache.core.internal.glob.globToRegex
-import ru.sokomishalov.kache.core.serialization.jdkserializable.JdkSerializableSerializer
+import ru.sokomishalov.kache.core.model.GlobString
+import ru.sokomishalov.kache.core.model.globToRegex
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
@@ -28,7 +27,6 @@ import java.util.concurrent.ConcurrentMap
  * @author sokomishalov
  */
 class ConcurrentMapKache(
-        override val serializer: Serializer = JdkSerializableSerializer(),
         private val map: ConcurrentMap<String, Any> = ConcurrentHashMap()
 ) : Kache {
 
@@ -44,7 +42,7 @@ class ConcurrentMapKache(
         map.remove(key)
     }
 
-    override suspend fun findKeys(glob: String): List<String> {
+    override suspend fun findKeys(glob: GlobString): List<String> {
         return map
                 .keys
                 .map { it }

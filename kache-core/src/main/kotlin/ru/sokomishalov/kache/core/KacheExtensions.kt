@@ -15,6 +15,9 @@
  */
 package ru.sokomishalov.kache.core
 
+import ru.sokomishalov.kache.core.model.GlobString
+
+
 /**
  * @author sokomishalov
  */
@@ -26,7 +29,7 @@ suspend inline fun <reified T> Kache.getMap(key: String, ifEmpty: () -> Map<Stri
 
 suspend inline fun <reified T> Kache.getFromMap(key: String, mapKey: String, orElse: () -> T? = { null }): T? = getFromMap(key, mapKey, T::class.java) ?: orElse()
 
-suspend inline fun <reified T : Any> Kache.find(glob: String, ifEmpty: () -> List<T> = { emptyList() }): List<T> = find(glob, T::class.java).ifEmpty { ifEmpty() }
+suspend inline fun <reified T : Any> Kache.find(glob: GlobString, ifEmpty: () -> List<T> = { emptyList() }): List<T> = find(glob, T::class.java).ifEmpty { ifEmpty() }
 
 suspend inline fun <reified T> Kache.addToList(key: String, vararg values: T): List<T> = addToList(key, T::class.java, *values)
 
