@@ -18,6 +18,7 @@ package ru.sokomishalov.kache.core
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.sokomishalov.kache.core.internal.glob.GlobString
 
 /**
  * @author sokomishalov
@@ -35,7 +36,7 @@ interface Kache {
     val serializer: Serializer
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
-    suspend fun findKeysByGlob(glob: String): List<String>
+    suspend fun findKeys(glob: GlobString): List<String>
     suspend fun delete(key: String)
 
     // -------------------------------------------------------------------------------------//
@@ -79,11 +80,11 @@ interface Kache {
     }
 
     suspend fun findAllKeys(): List<String> {
-        return findKeysByGlob("*")
+        return findKeys("*")
     }
 
     suspend fun <T : Any> find(glob: String, elementClass: Class<T>): List<T> {
-        return findKeysByGlob(glob).mapNotNull { getOne(it, elementClass) }
+        return findKeys(glob).mapNotNull { getOne(it, elementClass) }
     }
 
     suspend fun delete(keys: Iterable<String>) {

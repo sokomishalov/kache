@@ -32,7 +32,7 @@ interface Kache {
     val serializer: Serializer
     suspend fun getRaw(key: String): ByteArray?
     suspend fun putRaw(key: String, value: ByteArray)
-    suspend fun findKeysByGlob(glob: String): List<String>
+    suspend fun findKeys(glob: GlobString): List<String>
     suspend fun delete(key: String)
 
     // -------------------------------------------------------------------------------------//

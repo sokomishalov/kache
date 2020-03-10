@@ -33,8 +33,7 @@ import org.bson.Document
 import org.bson.conversions.Bson
 import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
-import ru.sokomishalov.kache.core.util.globToRegex
-import ru.sokomishalov.kache.core.util.unit
+import ru.sokomishalov.kache.core.internal.glob.globToRegex
 import kotlin.text.Charsets.UTF_8
 
 /**
@@ -72,10 +71,9 @@ class MongoReactiveStreamsKache(
         getCollection()
                 .deleteOne(key.buildKeyBson())
                 .awaitFirstOrNull()
-                .unit()
     }
 
-    override suspend fun findKeysByGlob(glob: String): List<String> {
+    override suspend fun findKeys(glob: String): List<String> {
         return getCollection()
                 .find(eq(ID_FIELD, glob.globToRegex().toPattern()))
                 .asFlow()

@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.sokomishalov.kache.core.util
+package ru.sokomishalov.kache.core.internal.glob
 
-/**
- * @author sokomishalov
- */
+typealias GlobString = String
 
 // https://stackoverflow.com/a/1248627/5843129
-fun String.globToRegex(): Regex {
+fun GlobString.globToRegex(): Regex {
     val sb = StringBuilder(length)
     var inGroup = 0
     var inClass = 0

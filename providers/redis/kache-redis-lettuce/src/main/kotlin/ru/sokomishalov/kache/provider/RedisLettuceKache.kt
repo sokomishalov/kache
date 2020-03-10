@@ -22,7 +22,6 @@ import io.lettuce.core.api.StatefulRedisConnection
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import ru.sokomishalov.kache.core.Kache
 import ru.sokomishalov.kache.core.Serializer
-import ru.sokomishalov.kache.core.util.unit
 import ru.sokomishalov.kache.provider.internal.StringByteArrayCodec
 
 /**
@@ -37,17 +36,47 @@ class RedisLettuceKache(
         private val connection: StatefulRedisConnection<String, ByteArray> = client.connect(StringByteArrayCodec())
 ) : Kache {
 
-    override suspend fun getRaw(key: String): ByteArray? = connection.reactive().get(key).awaitFirstOrNull()
-
-    override suspend fun putRaw(key: String, value: ByteArray) = connection.reactive().set(key, value).awaitFirstOrNull().unit()
-
-    override suspend fun delete(key: String) = connection.reactive().del(key).awaitFirstOrNull().unit()
-
-    override suspend fun expire(key: String, ttlMs: Long) = connection.reactive().pexpire(key, ttlMs).awaitFirstOrNull().unit()
-
-    override suspend fun findKeysByGlob(glob: String): List<String> {
-        return connection.reactive().scan(ScanArgs().match(glob)).awaitFirstOrNull()?.keys ?: emptyList()
+    override suspend fun getRaw(key: String): ByteArray? {
+        return connection
+                .reactive()
+                .get(key)
+                .awaitFirstOrNull()
     }
 
-    override suspend fun exists(key: String): Boolean = connection.reactive().exists(key).awaitFirstOrNull() == 1L
+    override suspend fun putRaw(key: String, value: ByteArray) {
+        connection
+                .reactive()
+                .set(key, value)
+                .awaitFirstOrNull()
+    }
+
+    override suspend fun delete(key: String) {
+        connection
+                .reactive()
+                .del(key)
+                .awaitFirstOrNull()
+    }
+
+    override suspend fun expire(key: String, ttlMs: Long) {
+        connection
+                .reactive()
+                .pexpire(key, ttlMs)
+                .awaitFirstOrNull()
+    }
+
+    override suspend fun findKeys(glob: String): List<String> {
+        return connection
+                .reactive()
+                .scan(ScanArgs().match(glob))
+                .awaitFirstOrNull()
+                ?.keys
+                ?: emptyList()
+    }
+
+    override suspend fun exists(key: String): Boolean {
+        return connection
+                .reactive()
+                .exists(key)
+                .awaitFirstOrNull() == 1L
+    }
 }
